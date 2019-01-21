@@ -1,6 +1,5 @@
 /*
- * Searches the data from the Toronto Waste Wizard. Requires the jQuery library and a #templateItemTWL mustache
- * template.
+ * Requires the jQuery library and a #templateItemTWL mustache template. Developed inline with index.html.
  * Author: Alvin Tang
  * Created: 2019-01-19
  * Last updated: 2019-01-21

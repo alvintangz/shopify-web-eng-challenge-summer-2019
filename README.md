@@ -3,8 +3,8 @@ A web application that searches for waste items using the Toronto Waste Wizard d
 
 ## Acknowledgments
 I acknowledge that the libraries, services, or images listed below were used.
-- Google Fonts
-- jQuery.js
+- Open Sans on Google Fonts
+- jQuery
 - mustache.js
 - Toronto Waste Wizard Lookup data
 - Search strong icon - MIT License
@@ -18,5 +18,13 @@ I always load scripts at the bottom so the most of the page can load earlier, ra
 ### Expect the Unexpected
 Always try to expect users that may not follow the browser requirements set forth by the code written by you, especially when your app has a large varying user base. For example, I have written a message for those users who don't have JavaScript enabled, which is very rare. This is just an example that was implemented to get my point across, and I am expecting that anyone using my application is not using it for practical terms, so new standards, that very few browsers haven't kept up with, like flexbox were implemented.
 
-## Improvements
+## Further Improvements
+Since I was limited by the time and scope of the rules, I did not know what I could/should or could/should not implement. Here's a list of suggested further improvements:
+- Ignore and remove those items in favourites that were saved before, but cannot be found now; cannot expect that the data provided will not change
+- Make it such that the favourites section isn't completely refreshing after each change; can be disturbing if a user scrolls to a specific favourite and a change is made (they are scrolled back to the top of favourites as of this implementation)
+- Test the app on older browsers and make adjustments; works on mobile and desktop chrome versions and firefox perfectly as of now
+- Search input should be case insensitive (it is case sensitive to keywords for now)
+- Search input should be checked against each keyword (it is checked against a list of keywords in a string for now)
+
+## Suggestions for Improvements
 Feel free to contact me at [alvin.tang@mail.utoronto.ca](mailto:alvin.tang@mail.utoronto.ca) if you have any advice about have I should have implemented this, or any suggestions for improvements.
