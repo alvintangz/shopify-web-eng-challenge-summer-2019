@@ -22,26 +22,8 @@ var messages = {
 // All the data
 var TWWLData;
 
-// Function that checks if item is favourited through title
-function checkItemFavourite(title) {
-    // Load saved favourites in local storage
-    var savedFav = JSON.parse(localStorage.getItem("favourites"));
-
-    // If there are saved favourites
-    if(savedFav) {
-        // Loop through each item in the saved data
-        $.each(savedFav, function(index, itemtitle){
-            if(itemtitle == title) {
-                return true;
-            }
-        });
-    }
-    return false;
-
-}
-
 // Function that loads each item in the TWW
-function loadItem(item, target) {
+function loadItem(item, target, star) {
     var template = $('#templateItemTWL').html();
     Mustache.parse(template);
     // Decode body
@@ -49,7 +31,7 @@ function loadItem(item, target) {
     // Active class - default is empty
     var activeStar = "";
     // Green star for those favourited
-    if(checkItemFavourite(item.title)) {
+    if(star) {
         activeStar = " star-active";
     }
     var rendered = Mustache.render(template, {active: activeStar, title: item.title, body: decodedBody});
@@ -92,7 +74,7 @@ $(document).ready(function() {
             $.getJSON(dataURI, function(data){
                 $.each(data, function(index, item){
                     if(item.title == itemTitle) {
-                        loadItem(item, $("ul#favouritesTWL"));
+                        loadItem(item, $("ul#favouritesTWL"), true);
                     }
                 });
             });
@@ -130,9 +112,20 @@ $(document).ready(function() {
                     var ulResultsTWL = "<ul id=\"resultsTWL\" class=\"list-TWL-items\"></ul>";
                     $("#results > .list-TWL-items-container").html(ulResultsTWL);
                 }
+                
+                // Refresh saved favourites in local storage
+                savedFav = JSON.parse(localStorage.getItem("favourites"));
 
                 // Load current item in results
-                loadItem(item, $("ul#resultsTWL"));
+                $.getJSON(dataURI, function(data){
+                    $.each(data, function(index, item){
+                        if(item.title == itemTitle) {
+                            loadItem(item, $("ul#favouritesTWL"), true);
+                        }
+                    });
+                });
+                // Load current item in results
+                loadItem(item, $("ul#resultsTWL"), false);
             }
         });
     });
@@ -143,7 +136,6 @@ $(document).ready(function() {
         savedFav = JSON.parse(localStorage.getItem("favourites"));
         // Item title
         var itemTitle = $(this).parent().parent().find(".item-TWL-title p").text();
-        console.log(itemTitle);
         // If item is in favourites already, remove it
         if(savedFav) {
             if(savedFav.includes(itemTitle)) {
@@ -161,6 +153,29 @@ $(document).ready(function() {
         }
         // Make changes in local storage
         localStorage.setItem("favourites", JSON.stringify(savedFav));
+        // Reset favourites listing
+        $("#favourites .list-TWL-items-container").empty();
+        if(savedFav.length == 0) {
+            $("#favourites .list-TWL-items-container").html(messages["noFavourites"]);
+        }
+        // Loop through each item in the Toronto Waste Wizard Data
+        $.each(savedFav, function(index, itemTitle){
+            // If list of favourites doesn't already exist
+            if(!$('ul#favouritesTWL').length) {
+                // Define a list of favourites
+                var ulFavTWL = "<ul id=\"favouritesTWL\" class=\"list-TWL-items\"></ul>";
+                $("#favourites > .list-TWL-items-container").html(ulFavTWL);
+            }
+
+            // Load current item in results
+            $.getJSON(dataURI, function(data){
+                $.each(data, function(index, item){
+                    if(item.title == itemTitle) {
+                        loadItem(item, $("ul#favouritesTWL"), true);
+                    }
+                });
+            });
+        });
     });
 
     // On change of search input field
