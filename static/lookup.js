@@ -122,8 +122,12 @@ $(document).ready(function() {
                 var savedFav = JSON.parse(localStorage.getItem("favourites"));
 
                 // Load current item in results
-                if(savedFav.includes(item.title)) {
-                    loadItem(item, $("ul#resultsTWL"), true);
+                if(savedFav) {
+                    if(savedFav.includes(item.title)) {
+                        loadItem(item, $("ul#resultsTWL"), true);
+                    } else {
+                        loadItem(item, $("ul#resultsTWL"), false);
+                    }
                 } else {
                     loadItem(item, $("ul#resultsTWL"), false);
                 }
