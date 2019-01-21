@@ -22,7 +22,12 @@ var messages = {
 // All the data
 var TWWLData;
 
-// Function that loads each item in the TWW
+/*
+Function that loads an item from the Toronto Waste Wizard (TWW) in HTML.
+@param item: the item to load
+@param target: the parent of where the item is loaded and appended to
+@param star: make star active (green) if true
+*/
 function loadItem(item, target, star) {
     var template = $('#templateItemTWL').html();
     Mustache.parse(template);
@@ -112,20 +117,16 @@ $(document).ready(function() {
                     var ulResultsTWL = "<ul id=\"resultsTWL\" class=\"list-TWL-items\"></ul>";
                     $("#results > .list-TWL-items-container").html(ulResultsTWL);
                 }
-                
-                // Refresh saved favourites in local storage
-                savedFav = JSON.parse(localStorage.getItem("favourites"));
+
+                // Reload saved favourites in local storage
+                var savedFav = JSON.parse(localStorage.getItem("favourites"));
 
                 // Load current item in results
-                $.getJSON(dataURI, function(data){
-                    $.each(data, function(index, item){
-                        if(item.title == itemTitle) {
-                            loadItem(item, $("ul#favouritesTWL"), true);
-                        }
-                    });
-                });
-                // Load current item in results
-                loadItem(item, $("ul#resultsTWL"), false);
+                if(savedFav.includes(item.title)) {
+                    loadItem(item, $("ul#resultsTWL"), true);
+                } else {
+                    loadItem(item, $("ul#resultsTWL"), false);
+                }
             }
         });
     });
@@ -142,14 +143,23 @@ $(document).ready(function() {
                 var index = savedFav.indexOf(itemTitle);
                 if(index > -1) {
                     savedFav.splice(index, 1);
+                    if($("#resultsTWL")) {
+                        $(".item-TWL-title p:contains('" + itemTitle + "')").parent().parent().find(".item-TWL-star").find(".star-item").removeClass("star-active");
+                    }
                 }
             } else {
                 // Add to array
                 savedFav.push(itemTitle);
+                if($("#resultsTWL")) {
+                    $(".item-TWL-title p:contains('" + itemTitle + "')").parent().parent().find(".item-TWL-star").find(".star-item").addClass("star-active");
+                }
             }
         } else {
             // Add to array
             savedFav = [itemTitle,];
+            if($("#resultsTWL")) {
+                $(".item-TWL-title p:contains('" + itemTitle + "')").parent().parent().find(".item-TWL-star").find(".star-item").addClass("star-active");
+            }
         }
         // Make changes in local storage
         localStorage.setItem("favourites", JSON.stringify(savedFav));
