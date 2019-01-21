@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en-CA">
+    <head>
+        <meta charset="utf-8" />
+        <title>Toronto Waste Lookup</title>
+        <meta name="description" content="A web application that searches for waste items using the Toronto Waste Wizard database, developed for Shopify's Web Engineer Challenge for the summer of 2019." />
+        <meta name="keywords" content="Toronto,Waste,Wizard,Lookup,Shopify,Challenge" />
+        <meta name="author" content="Alvin Tang" />
+        <!-- Google Fonts -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,800" />
+        <link rel="stylesheet" href="static/styles.css" />
+        <!-- Temporary -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    </head>
+    <body>
+        <header>
+            <h1>Toronto Waste Lookup</h1>
+        </header>
+        <div id="loading">
+            <noscript><b>Please enable JavaScript.</b></noscript>
+            <b>Loading application...</b>
+        </div>
+        <main style="display:none">
+            <section id="search">
+                <form id="searchTWL">
+                    <input type="text" name="search" />
+                    <button type="submit">
+                        <!-- From: https://www.iconfinder.com/icons/211817/search_strong_icon; MIT License -->
+                        <svg style="transform:rotate(90deg);" height="4em" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="4em" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <path style="fill:white" d="M344.5,298c15-23.6,23.8-51.6,23.8-81.7c0-84.1-68.1-152.3-152.1-152.3C132.1,64,64,132.2,64,216.3  c0,84.1,68.1,152.3,152.1,152.3c30.5,0,58.9-9,82.7-24.4l6.9-4.8L414.3,448l33.7-34.3L339.5,305.1L344.5,298z M301.4,131.2  c22.7,22.7,35.2,52.9,35.2,85c0,32.1-12.5,62.3-35.2,85c-22.7,22.7-52.9,35.2-85,35.2c-32.1,0-62.3-12.5-85-35.2  c-22.7-22.7-35.2-52.9-35.2-85c0-32.1,12.5-62.3,35.2-85c22.7-22.7,52.9-35.2,85-35.2C248.5,96,278.7,108.5,301.4,131.2z" />
+                        </svg>
+                    </button>
+                </form>
+            </section>
+            <section id="results">
+                <div class="list-TWL-items-container">
+                </div>
+            </section>
+            <section id="favourites">
+                <h2>Favourites</h2>
+                <div class="list-TWL-items-container">
+                </div>
+            </section>
+        </main>
+        <!-- jQuery Library -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <!-- mustache.min.js: Templates -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></script>
+        <!-- mustache templates -->
+        <script id="templateItemTWL" type="x-tmpl-mustache">
+            <li class="item-TWL">
+                <div class="item-TWL-star">
+                    <!-- Star from Font Awesome - https://fontawesome.com/icons/star?style=solid; LICENSE: https://fontawesome.com/license -->
+                    <button class="star-item{{ active }}">
+                            <svg width="2em" height="2em" aria-hidden="true" data-prefix="fas" data-icon="star" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+                    </button>
+                </div>
+                <div class="item-TWL-title">
+                <p>{{ title }}</p>
+                </div>
+                <div class="item-TWL-body">
+                    {{{ body }}}
+                </div>
+            </li>
+        </script>
+        <!-- Lookup - main script -->
+        <script src="static/lookup.js"></script>
+    </body>
+</html>

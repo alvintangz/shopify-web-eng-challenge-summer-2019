@@ -20,7 +20,7 @@ Build a web app to search for waste items using the Toronto Waste Wizard databas
 
 ## Design
 
-![Design](http://cdn.shopify.com/static/web-eng-challenge-summer-2019/design.png)
+![Design](design.png)
 
 ## Submission
 

@@ -1,0 +1,125 @@
+html {
+    font-size: 1.5em;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+* {
+    margin: 0;
+}
+
+#loading {
+    text-align: center;
+    padding: 1em;
+}
+
+header {
+    /* Linear gradient HEX colours identified through Photoshop Eyedropper tool */
+    background-image: linear-gradient(to right, #1d5995, #23975f);
+    font-weight: 800;
+    padding: 35px 0;
+    text-align: center;
+}
+
+section {
+    padding: 1em;
+}
+
+header > h1 {
+    color: #fff;
+}
+
+
+/*
+Search bar
+*/
+
+#searchTWL {
+    display: flex;
+}
+
+#searchTWL > input[name="search"] {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 1em;
+    font-size: 1.4em;
+    box-flex: 1;
+    flex: 1;
+}
+
+#searchTWL > button[type="submit"] {
+    background-color: #23995c;
+    border: 0;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-left: 1.5em;
+    padding: 1em;
+}
+
+/*
+Items
+*/
+
+.list-TWL-items {
+    padding: 0;
+}
+
+.list-TWL-items > .item-TWL {
+    display: flex;
+    flex-wrap: wrap;
+    padding-bottom: 1em;
+}
+
+.list-TWL-items > .item-TWL > .item-TWL-title {
+    flex: 0 0 50%;
+    max-width: 40%;
+    padding-left: 1em;
+}
+
+.list-TWL-items > .item-TWL > .item-TWL-body {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.list-TWL-items > .item-TWL > .item-TWL-body ul {
+    list-style-type: disc;
+}
+
+.list-TWL-items > .item-TWL > .item-TWL-body li {
+    margin-bottom: 1em;
+}
+
+.star-item {
+    color: #bbb;
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.star-active {
+    color: #23995c !important;
+}
+
+/*
+Results
+*/
+
+#resultsTWL {
+    list-style: none;
+}
+
+/*
+Favourites
+*/
+
+#favourites {
+    background-color: #f7fefa;
+}
+
+#favourites > h2 {
+    color: #23995c;
+    margin-bottom: 1em;
+}
